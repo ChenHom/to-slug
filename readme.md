@@ -7,10 +7,8 @@
 ## 功能需求
 
 1. 從 command line 接收輸入的文字。
-2. 使用 OpenAI API 將文字轉換成簡單的口語英文。
-   - Prompt: Convert this text into simple spoken English, just give the result directly, no additional information is needed
-3. 使用 OpenAI API 將剛的英文轉換成 slug。
-   - Prompt: Make this English Slugify and adjust the number of words to simplify it. When responding, just give the result directly, no additional information is needed
+2. 使用 OpenAI API 將文字轉換成簡單的口語英文並轉換成 slug。
+   - Prompt: Convert this text into simple spoken English and then make it a URL slug. Adjust the number of words to simplify it. When responding, just give the result directly, no additional information is needed.
 
 ## 非功能需求
 
@@ -53,8 +51,7 @@
 - `main.go`: 主程式文件，包含主要邏輯和功能實現。
   - `init()`: 初始化函數，檢查環境變數並創建 OpenAI 客戶端。
   - `main()`: 主函數，解析命令行參數並調用翻譯和轉換函數。
-  - `translateToEnglish(text string) string`: 將文字翻譯為簡單的口語英文。
-  - `translateToSlug(text string) string`: 將文字轉換為 URL slug。
+  - `translateToSlug(text string) string`: 將文字翻譯為簡單的口語英文並轉換為 URL slug。
 
 ## 測試
 
