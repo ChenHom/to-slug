@@ -63,51 +63,22 @@ func main() {
 
 	input := os.Args[1]
 
-	// 翻譯輸入文字為英文
-	translatedText := translateToEnglish(input)
-	// 將翻譯後的英文轉換為 slug
-	slug := translateToSlug(translatedText)
+	// 翻譯輸入文字並轉換為 slug
+	slug := translateToSlug(input)
 
-	fmt.Println("Slug: ", slug)
+	fmt.Println("Slug: \n\n", slug)
 }
 
-// 將文字翻譯為簡單的口語英文
-func translateToEnglish(text string) string {
-	req := openai.ChatCompletionRequest{
-		Model: ModelGpt4o,
-		Messages: []openai.ChatCompletionMessage{
-			{
-				Role:    "developer",
-				Content: "Convert this text into simple spoken English, just give the result directly, no additional information is needed: " + text,
-			},
-		},
-	}
-
-	ctx := context.Background()
-	resp, err := client.CreateChatCompletion(ctx, req)
-	if err != nil {
-		fmt.Println("Error making request:", err)
-		return ""
-	}
-
-	if len(resp.Choices) == 0 {
-		fmt.Println("No choices returned from API")
-		return ""
-	}
-
-	return strings.TrimSpace(resp.Choices[0].Message.Content)
-}
-
-// 將文字轉換為 URL slug
+// 將文字翻譯為簡單的口語英文並轉換為 URL slug
 func translateToSlug(text string) string {
 	req := openai.ChatCompletionRequest{
 		Model: ModelGpt4o,
 		Messages: []openai.ChatCompletionMessage{
 			{
 				Role: "developer",
-				Content: "Make this English Slugify and adjust the number of words to simplify it." +
-					" When responding, just give the result directly, no additional information is needed: " +
-					text,
+				Content: "Convert this text into simple spoken English and then make it a URL slug. " +
+					"Adjust the number of words to simplify it. When responding, just give the result directly, " +
+					"no additional information is needed: " + text,
 			},
 		},
 	}
